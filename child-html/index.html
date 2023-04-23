@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head></head>
+
+<body>
+  <h1>子应用</h1>
+  <div id="child-content"></div>
+
+  <script>
+    function render() {
+      document.getElementById('child-content').innerHTML = '这是子应用渲染后的内容'
+      return Promise.resolve()
+    }
+
+    (global => {
+      global['child-html'] = {
+        bootstrap: () => {
+          console.log('bootstrap')
+          return Promise.resolve();
+        },
+        mount: () => {
+          console.log('mount');
+          return render();
+        },
+        unmount: () => {
+          console.log('unmount');
+          return Promise.resolve();
+        }
+      }
+    })(window)
+  </script>
+</body>
+
+</html>
